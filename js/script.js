@@ -31,6 +31,8 @@ const imgsAsset = [
     "./img/favicon/favicon-16x16.png",
     "./img/favicon/favicon-32x32.png",
     "./img/favicon/mstile-150x150.png",
+    "./img/slot-machine_fhrtsl.png",
+    "./img/body_btvubu1.png"
 ];
 
 app.loader
@@ -121,8 +123,8 @@ function startGame() {
 
     let coins = 10;
 
-    var IMG_MACHINE = "./img/slot-machine_fhrtsl.png";
-    var IMG_BODY = "./img/body_btvubu1.png";
+    var IMG_MACHINE = imgsAsset[6];
+    var IMG_BODY = imgsAsset[7];
 
     var STATE_ZERO = 0;
     var STATE_INIT = 1;
