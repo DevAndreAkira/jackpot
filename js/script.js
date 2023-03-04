@@ -281,7 +281,7 @@ function startGame() {
                     }
                     if (test) {
                         seActive ? createEffect(soundAsset[2], .1) : '';
-                        // alert("Congratulations, you won!");
+                        // alert("Congratulations, you won!"); 
                         coins = coins + 10;
                     }
                     return coinsText.text = `Coins: ${coins}`;;
