@@ -118,8 +118,8 @@ function createText(valor, cor, alignX, alignY, interativo, container, funcLink,
 }
 
 function startGame() {
-    const containerstart = new PIXI.Container();
-    app.stage.addChild(containerstart);
+    const containerStart = new PIXI.Container();
+    app.stage.addChild(containerStart);
 
     let coins = 10;
 
@@ -158,9 +158,9 @@ function startGame() {
     coinsText.anchor.set(.5);
     coinsText.x = (app.screen.width / 2);
     coinsText.y = (app.screen.height / 2 - 275);
-    containerstart.addChild(coinsText);
+    containerStart.addChild(coinsText);
 
-    createText("Back", '#ffffff', (app.screen.width / 2), (app.screen.height / 2 + 225), true, containerstart, voltar, true);
+    createText("Back", '#ffffff', (app.screen.width / 2), (app.screen.height / 2 + 225), true, containerStart, voltar, true);
 
     setup();
 
@@ -171,7 +171,7 @@ function startGame() {
         bodySprite.anchor.set(0.5);
         bodySprite.x = app.screen.width / 2 + 2;
         bodySprite.y = app.screen.height / 2 - 70;
-        containerstart.addChild(bodySprite);
+        containerStart.addChild(bodySprite);
 
         const spinButton = new PIXI.Text("Press Enter\nor click here", {
             fill: 0xffffff,
@@ -193,7 +193,7 @@ function startGame() {
         spinButton.y = (app.screen.height / 2) + 150;
         spinButton.interactive = true;
         spinButton.cursor = 'pointer';
-        containerstart.addChild(spinButton);
+        containerStart.addChild(spinButton);
 
         spinButton.on("pointerdown", () => {
             coins = coins - 1;
@@ -210,7 +210,7 @@ function startGame() {
             slotSprite[i].tilePosition.y = (-preChoosedPosition[i] * TILE_HEIGHT) + 10;
             slotSprite[i].x = INITIAL_X + (i * 115);
             slotSprite[i].y = app.screen.height / 2;
-            containerstart.addChild(slotSprite[i]);
+            containerStart.addChild(slotSprite[i]);
         }
         draw();
     }
@@ -281,6 +281,10 @@ function startGame() {
                             test = false;
                         }
                     }
+                    if (coins <= 0) {
+                        containerStart.destroy();
+                        createText("You lose\nPress to try again", 0xffffff, app.screen.width / 2, app.screen.height / 2, true, app.stage, refresh)
+                    }
                     if (test) {
                         seActive ? createEffect(soundAsset[2], .1) : '';
                         // alert("Congratulations, you won!"); 
@@ -288,10 +292,10 @@ function startGame() {
                     }
                     return coinsText.text = `Coins: ${coins}`;;
                 }
-            renderer.render(containerstart);
+            renderer.render(containerStart);
             requestAnimationFrame(draw);
         }
-        renderer.render(containerstart);
+        renderer.render(containerStart);
         requestAnimationFrame(draw);
     }
     //draw
@@ -388,6 +392,10 @@ function diminuiMusic() {
         console.log("Diminui: " + calculoSoundMusic(volMusic));
         localStorage.setItem("volume", calculoSoundMusic(volMusic))
     }
+}
+
+function refresh() {
+    window.location.reload();
 }
 
 function voltar() {
