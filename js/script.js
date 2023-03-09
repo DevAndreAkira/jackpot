@@ -12,6 +12,8 @@ let seActive = true;
 let itensMenu = [];
 let preloadeCount = 0;
 
+let valido = true;
+
 //^ Preloader  
 
 const containerLoading = new PIXI.Container();
@@ -180,10 +182,11 @@ function startGame() {
 
         // Execute a function when the user presses a key on the keyboard
         document.addEventListener("keypress", function (event) {
-            if (event.key === "Enter") {
+            if (event.key === "Enter" && valido === true) {
                 event.preventDefault();
                 coins = coins - 1;
                 coinsText.text = `Coins: ${coins}`;
+                valido = false;
                 startAnimation();
             }
         });
@@ -196,9 +199,12 @@ function startGame() {
         containerStart.addChild(spinButton);
 
         spinButton.on("pointerdown", () => {
-            coins = coins - 1;
-            coinsText.text = `Coins: ${coins}`;
-            startAnimation();
+            if(valido === true){
+                coins = coins - 1;
+                coinsText.text = `Coins: ${coins}`;
+                startAnimation();
+            }
+            valido = false;
         })
 
         texture1 = PIXI.utils.TextureCache[loader[0]];
@@ -279,6 +285,7 @@ function startGame() {
                     for (var i = 1; i < SLOT_NUMBER; i++) {
                         if (preChoosedPosition[i] != preChoosedPosition[i - 1]) {
                             test = false;
+                            valido = true;
                         }
                     }
                     if (coins <= 0) {
@@ -288,6 +295,7 @@ function startGame() {
                     if (test) {
                         seActive ? createEffect(soundAsset[2], .1) : '';
                         // alert("Congratulations, you won!"); 
+                        valido = true;
                         coins = coins + 10;
                     }
                     return coinsText.text = `Coins: ${coins}`;;
